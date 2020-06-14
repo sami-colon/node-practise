@@ -1,0 +1,43 @@
+db.createCollection('movies'); use movies;
+
+db.movies.insertMany([{
+  "name": "Atlantic City",
+  "genre": "Crime|Drama|Romance",
+  "rating": 3,
+  "language": "Malayalam"
+}, {
+  "name": "Incantato (Il cuore altrove)",
+  "genre": "Comedy|Drama|Romance",
+  "rating": 5,
+  "language": "Guaraní"
+}, {
+  "name": "Private Life of Sherlock Holmes, The",
+  "genre": "Comedy|Drama|Mystery",
+  "rating": 3,
+  "language": "Irish Gaelic"
+}, {
+  "name": "Manson Family, The",
+  "genre": "Crime|Drama|Horror",
+  "rating": 4,
+  "language": "Montenegrin"
+}, {
+  "name": "Blackout, The",
+  "genre": "Drama",
+  "rating": 3,
+  "language": "Hungarian"
+}])
+
+db.movies.find({});
+
+db.movies.findOne({});
+
+db.movies.find({}).sort({rating: -1}).limit(3);
+
+db.movies.update({name: "Manson Family, The"}, {$set: {achievements: 'Super hit'}});
+var res = db.movies.findOne({name: 'Blackout, The'});
+res.achievements = 'Super Duper hit';
+db.movies.save(res);
+
+db.movies.find({$and: [{achievements: 'Super Hit'}, {achievements: 'Super Duper hit'}]});
+
+db.movies.find({achievements: {$exists: true}});
