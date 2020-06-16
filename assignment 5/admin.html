@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>Admin Panel!</title>
+</head>
+
+<body>
+    <h1 class="jumbotron jumbotron-fluid jumbotron-hr text-center">Admin Panel!</h1>
+    <div class="row justify-content-center text-left my-3 mx-0">
+        <div class="col-12 col-md-9">
+            <table class="table text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Order id</th>
+                        <th scope="col">Order status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tableEntry">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(() => {
+            $.getJSON('http://localhost:3001/orderDetails')
+            .done(data => {
+                $.each(data, (idx, order) => {
+                    let currDate = new Date();
+                    let orderDate = new Date(order.date);
+                    const diff = ((new Date()).getTime() - (new Date(order.date)).getTime()) / (1000 * 3600 * 24);
+                    let status = 'ordered';
+                    if(diff < 1)
+                        status = 'ordered';
+                    else if(diff >=1 && diff <2)
+                        status = 'dispatched';
+                    else if(diff >=2)
+                        status = 'delivered';
+
+                    const temp = `<tr>
+                        <th scope="row">${idx + 1}</th>
+                        <td>${order._id}</td>
+                        <td>${status}</td>
+                        <td>
+                        <button class="btn btn-success btn-outline-primary text-white" 
+                                id="${order._id}">
+                            Send Email
+                        </button>
+                        </td>
+                    </tr>`;
+                    $('#tableEntry').append(temp);
+                    $(`#${order._id}`).on('click', (evt) => {
+                        const orderId = evt.target.id;
+                        $.post('http://localhost:3001/sendEmail', {'orderId': orderId, 'status': status})
+                        .done(data => {
+                            if(data[0].statusCode)alert('Email Sent Succesfully');
+                        })
+                        .catch(err => console.log(err));
+                    });
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        });
+    </script>
+</body>
+
+</html>
