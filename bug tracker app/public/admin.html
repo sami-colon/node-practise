@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>Admin Panel!</title>
+</head>
+
+<body>
+    <h1 class="jumbotron jumbotron-fluid jumbotron-hr text-center">Admin Panel!</h1>
+    <div class="row justify-content-center text-left my-3 mx-0">
+        <div class="col-12 col-md-10">
+            <table class="table text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Bug id</th>
+                        <th scope="col">Assignee</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Date reported</th>
+                        <th scope="col">Time reported</th>
+                        <th scope="col">Days remaining</th>
+                    </tr>
+                </thead>
+                <tbody id="tableEntry">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(() => {
+            $.getJSON('http://localhost:3001/getBug')
+            .done(data => {
+                $.each(data, (idx, bug) => {
+                    let currDate = new Date();
+                    let orderDate = new Date(bug.Date);
+                    const diff = ((new Date()).getTime() - (new Date(bug.Date)).getTime()) / (1000 * 3600 * 24);
+                    let status = '';
+                    if(diff >= 4)
+                        status = 'bg-danger';
+
+                    const temp = `<tr class="${status}">
+                        <th scope="row">${idx + 1}</th>
+                        <td>${bug._id}</td>
+                        <td>${bug.Assignee}</td>
+                        <td>${bug.Title}</td>
+                        <td>${bug.Description}</td>
+                        <td>${bug.Date}</td>
+                        <td>${bug.Time}</td>
+                        <td>${Math.floor(4 - diff)>0?Math.floor(4 - diff):0}</td>
+                    </tr>`;
+                    $('#tableEntry').append(temp);
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        });
+    </script>
+</body>
+
+</html>

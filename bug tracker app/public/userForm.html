@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>User Form</title>
+</head>
+
+<body>
+	<h1 class="jumbotron jumbotron-fluid jumbotron-hr text-center">Repot Bug!</h1>
+	<form action="http://localhost:3001/setBug" method="POST">
+        <div class="row justify-content-center text-left my-3 mx-0">
+            <div class="col-md-6 col-12">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="name-prepend"><i class="fa fa-users" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="Assignee" placeholder="Assignee" name="Assignee" required>
+                    <div class="invalid-tooltip">
+                        Please choose a valid Assignee name.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center text-left my-3 mx-0">
+            <div class="col-md-6 col-12">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="add-prepend"><i class="fa fa-info" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="Title" placeholder="Title" name="Title" required>
+                    <div class="invalid-tooltip">
+                        Please choose a valid Title.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center text-left my-3 mx-0">
+            <div class="col-md-6 col-12">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="desc-prepend"><i class="fa fa-list" aria-hidden="true"></i></span>
+                    </div>
+                    <input type="text" class="form-control" id="Description" placeholder="Description" name="Description" required>
+                    <div class="invalid-tooltip">
+                        Please choose a valid Description.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center text-center my-5 mx-0">
+            <button type="submit" class="btn btn-primary text-white">Submit Bug!</button>
+        </div>
+    </form>
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html>
