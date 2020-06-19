@@ -43,6 +43,7 @@ node_modules/
 jspm_packages/
 tools_and_softs/
 extra_materials/
+config.js
 # TypeScript v1 declaration files
 typings/
 

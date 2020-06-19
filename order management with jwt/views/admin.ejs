@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>Admin</title>
+</head>
+
+<body class="bg-white">
+    <h1 class="p-5 bg-info text-white text-center mb-0"><p>Admin Page</p>
+        <button class="btn btn-danger" id="logout">logout</button>
+    </h1>
+    <p class="text-white text-center bg-danger my-0" id="p1"><%= error %></p>
+    <p class="text-white text-center bg-success my-0" id="p2"><%= msg %></p>
+    <div class="row justify-content-center text-center my-5 mx-0">
+        <div class="col-3">
+            <a id="add-product-btn" class="btn btn-primary py-2 px-5 text-white">Add product!</a>
+        </div>
+        <div class="col-3">
+            <a id="add-user-btn" class="btn btn-success py-2 px-5 text-white">Add user!</a>
+        </div>
+        <div class="col-3">
+            <a id="show-product-btn" class="btn btn-secondary py-2 px-5 text-white">Product list!</a>
+        </div>
+        <div class="col-3">
+            <a id="show-user-btn" class="btn btn-warning py-2 px-5 text-white">User list!</a>
+        </div>
+    </div>
+    <hr>
+    <hr>
+    <div class="row justify-content-center text-center my-5 mx-0" id="add-user" style="display: none;">
+        <div class="col-9">
+            <form action="http://localhost:3001/add_user" method="POST">
+                <div class="row justify-content-center text-left my-3 mx-0">
+                    <div class="col-md-6 col-12">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="name-prepend"><i class="fa fa-users" aria-hidden="true"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="username" placeholder="user name" name="username" required>
+                            <div class="invalid-tooltip">
+                                Please choose a valid user name.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center text-left my-3 mx-0">
+                    <div class="col-md-6 col-12">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="pass-prepend"><i class="fa fa-key" aria-hidden="true"></i></span>
+                            </div>
+                            <input type="password" class="form-control" id="password" placeholder="password" name="password" required minlength="8">
+                            <div class="invalid-tooltip">
+                                Please choose a valid password.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center text-left my-3 mx-0">
+                    <div class="col-md-6 col-12">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="role" id="exampleRadios1" value="non-admin" checked>
+                            <label class="form-check-label" for="exampleRadios1">
+                                Non Admin
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="role" id="exampleRadios2" value="admin">
+                            <label class="form-check-label" for="exampleRadios2">
+                                Admin
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center text-center my-5 mx-0">
+                    <button type="submit" class="btn btn-primary text-white">submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row justify-content-center text-center my-5 mx-0" id="show-user" style="display: none;">
+        <div class="col-12 col-md-9">
+            <table class="table text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">user id</th>
+                        <th scope="col">user name</th>
+                        <th scope="col">role</th>
+                    </tr>
+                </thead>
+                <tbody id="tableEntry">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row justify-content-center text-center my-5 mx-0" id="add-product" style="display: none;">
+        <div class="col-9">
+            <form action="http://localhost:3001/add_product" method="POST">
+                <div class="row justify-content-center text-left my-3 mx-0">
+                    <div class="col-md-6 col-12">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="pname-prepend"><i class="fa fa-users" aria-hidden="true"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="pname" placeholder="product name" name="pname" required>
+                            <div class="invalid-tooltip">
+                                Please choose a valid product name.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center text-left my-3 mx-0">
+                    <div class="col-md-6 col-12">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="details-prepend"><i class="fa fa-key" aria-hidden="true"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="details" placeholder="details" name="details" required>
+                            <div class="invalid-tooltip">
+                                Please enter valid details.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center text-left my-3 mx-0">
+                    <div class="col-md-6 col-12">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="price-prepend"><i class="fa fa-money" aria-hidden="true"></i></span>
+                            </div>
+                            <input type="text" class="form-control" id="price" placeholder="price" name="price" required>
+                            <div class="invalid-tooltip">
+                                Please enter valid details.
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+                <div class="row justify-content-center text-center my-5 mx-0">
+                    <button type="submit" class="btn btn-primary text-white">submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row justify-content-center text-center my-5 mx-0" id="show-product" style="display: none;">
+        <div class="col-12 col-md-9">
+            <table class="table text-center">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">product name</th>
+                        <th scope="col">product details</th>
+                        <th scope="col">price</th>
+                    </tr>
+                </thead>
+                <tbody id="tableEntryProducts">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    $(document).ready(() => {
+        function handleLogout(){
+            $.getJSON('http://localhost:3001/logout')
+            .done(data => {
+                if(data.result === true)
+                    window.location.replace('http://localhost:3001/');
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+        function helper(){
+            $('#p1').hide();
+            $('#p2').hide();
+            $('#add-user').hide();
+            $('#add-product').hide();
+            $('#show-product').hide();
+            $('#show-user').hide();
+        }
+        $('#logout').on('click', () => {
+            handleLogout();
+        });
+        $('#add-user-btn').on('click', () => {
+            helper();
+            $('#add-user').show();
+        });
+        $('#add-product-btn').on('click', () => {
+            helper();
+            $('#add-product').show();
+        });
+        $('#show-user-btn').on('click', () => {
+            helper();
+            $('#show-user').show();
+            $.getJSON('http://localhost:3001/userList')
+            .done(data => {
+                $.each(data, (idx, user) => {
+                    const temp = `<tr class="${user.role==='admin'?'bg-info':''}">
+                        <th scope="row">${idx + 1}</th>
+                        <td>${user._id}</td>
+                        <td>${user.username}</td>
+                        <td>${user.role}</td>
+                    </tr>`;
+                    $('#tableEntry').append(temp);
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        });
+        $('#show-product-btn').on('click', () => {
+            helper();
+            $('#show-product').show();
+            $.getJSON('http://localhost:3001/productList')
+            .done(data => {
+                $.each(data, (idx, product) => {
+                    const temp = `<tr>
+                        <th scope="row">${idx + 1}</th>
+                        <td>${product.name}</td>
+                        <td>${product.details}</td>
+                        <td>${product.price}</td>
+                    </tr>`;
+                    $('#tableEntryProducts').append(temp);
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        });
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>Shopping Page</title>
+</head>
+
+<body class="bg-white">
+    <h1 class="p-5 bg-info text-white text-center"><p>Shopping Page</p>
+        <button class="btn btn-danger" id="logout">logout</button></h1>
+    <div class="row justify-content-center text-center my-5 mx-0">
+        <% data.forEach((product) => { %>
+        <div class="col-2">
+            <div class="card" style="width: 100%;">
+                <img class="card-img-top w-100 h-100" src="https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=669&q=80" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title"><%= product.name %></h5>
+                    <p class="card-text"><%= product.details %></p>
+                    <p class="card-text"><%= product.price %> <b>INR</b></p>
+                    <a href="#" class="btn btn-primary">Buy now</a>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    $(document).ready(() => {
+        function handleLogout(){
+            $.getJSON('http://localhost:3001/logout')
+            .done(data => {
+                if(data.result === true)
+                    window.location.replace('http://localhost:3001/');
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+        $('#logout').on('click', () => {
+            handleLogout();
+        });        
+    });
+    </script>
+</body>
+
+</html>
