@@ -44,6 +44,8 @@ jspm_packages/
 tools_and_softs/
 extra_materials/
 config.js
+*.zip
+*.7z
 # TypeScript v1 declaration files
 typings/
 
