@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Welcome to the world of news!</title>
+    <script src = "https://maps.googleapis.com/maps/api/js"></script>
+    <script>
+        function loadMap() {
+            var mapOptions = {
+                center:new google.maps.LatLng(17.609993, 83.221436),
+                zoom:12,
+                mapTypeId:google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("sample"),mapOptions);
+        }
+        google.maps.event.addDomListener(window, 'load', loadMap);
+    </script>
+</head>
+<body>
+    <%- include('header'); %>
+    <div class="row mr-0">
+        <div class="col-6">
+            <div id = "sample" style = "width:100%; height:calc(100vh - 50px)"></div>
+        </div>
+        <div class="col-6">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur sagittis nunc ut mi euismod mattis. Mauris pharetra sed enim scelerisque maximus. Morbi vitae aliquet augue. Duis ut est id sem ultricies tempus. Nam pretium laoreet massa, quis porta leo luctus eu. Proin pharetra elit a elit consequat, vitae tincidunt odio sagittis. Pellentesque metus nisi, porta sed odio eget, porta mattis lectus. Mauris sed nisl quam. Nulla dignissim risus at tristique hendrerit. Donec sem felis, rhoncus vel ultricies non, porta at ligula. Integer pellentesque fringilla lacus vel rutrum.
+
+                Phasellus imperdiet vestibulum rhoncus. Cras gravida mauris sed urna molestie, quis rhoncus nisi commodo. Nam eu lectus est. Donec posuere eros ac maximus volutpat. Suspendisse potenti. Vestibulum semper mauris in egestas efficitur. Nullam et sollicitudin mauris. Quisque mauris sem, laoreet eu posuere a, fermentum at sem.
+
+                Vivamus ultrices nibh sapien. Quisque luctus dolor id sem feugiat, venenatis ultricies lectus placerat. Pellentesque dictum et urna ut consectetur. Cras pretium non ex et tempor. Aenean aliquam luctus tortor, sit amet sollicitudin risus malesuada non. Aenean vulputate ullamcorper laoreet. Suspendisse convallis augue orci, vel elementum sapien posuere nec.
+
+                Donec at orci eget sapien luctus vehicula sit amet in nibh. Pellentesque sapien ipsum, commodo eu elementum lacinia, feugiat nec augue. Integer fringilla semper ligula, eget ultricies nulla posuere at. Pellentesque non mauris ex. Etiam ac arcu sed dui faucibus euismod. Integer scelerisque ex mi, eu viverra orci tempor aliquet. Maecenas eget magna in sem commodo pretium sed in urna. Etiam ut aliquet ex. Sed sed est congue, varius nisl sit amet, sodales enim. Fusce accumsan nec dui sit amet mattis. Donec ultricies feugiat nulla ac consectetur. Aenean commodo justo nec nisl congue vulputate semper vitae nibh. Etiam et mollis mauris. Curabitur pulvinar augue ac quam semper fermentum.
+
+                Curabitur turpis tellus, vehicula sit amet quam quis, pharetra pulvinar turpis. Suspendisse potenti. Fusce eget sodales ex. Pellentesque egestas eros et fringilla pulvinar. Donec erat leo, aliquam in finibus non, luctus a dolor. Donec nec fringilla sem. Nulla gravida odio ac fermentum convallis. Nam suscipit augue ex, et tempus arcu euismod sed. Integer finibus orci ut vulputate fermentum. Vestibulum eleifend eget nibh at hendrerit. Mauris suscipit magna in nisl condimentum tempus.</p>
+        </div>
+    </div>
+    <%- include('footer') %>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $('#messageboxhandle1').hide();
+    </script>
+</body>
+</html>

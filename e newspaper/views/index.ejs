@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>Welcome to the world of news!</title>
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+      #msgboxhandler:hover{
+        cursor: pointer;
+      }
+      #messageboxhandle1{
+        background-color: lawngreen;
+      }
+      #messageboxhandle1:hover{
+        cursor: pointer;
+      }
+      li{
+        opacity: 0.85;
+      }
+      li:hover{
+        opacity: 1;
+        border: 1px solid white;
+        border-radius: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('header'); %>
+    <div class="row justify-content-center px-5 py-2 mr-0">
+      <div class="col-9 p-4 mx-auto text-center rounded" style="background-color: floralwhite; box-shadow: 2px 2px 20px gray">
+        <h1 class="font-weight-bold text-muted w-100 text-left"  style="font-size: 3rem;"><%= weather.name %>&nbsp;<sup><span class="badge badge-success" style="font-size: 1rem;"><%= weather.main.temp %><sup> O</sup>C</span></sup>  </h1>
+        <h3 class="text-dark text-capitalize text-right"><%= weather.weather[0].description %></h3>
+      </div>
+    </div>
+    <div class="row justify-content-center px-5 py-2 mr-0">
+      <div class="col-12">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block rounded" src="<%= news[0].imageUrl %>" alt="First slide" style="width: 100%; height: 500px; object-fit: cover; object-position: center; box-shadow: 2px 2px 20px gray;">
+            </div>
+            <% news.forEach(data => {  %>
+              <div class="carousel-item">
+                <img class="d-block rounded" src="<%= data.imageUrl %>" alt="First slide" style="width: 100%; height: 500px; object-fit: cover; object-position: center; box-shadow: 2px 2px 20px gray;">
+              </div>
+            <% }) %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row justify-content-center px-5 py-2 mr-0">
+        <% latestNews.forEach(data => { %>
+          <div class="col-4">
+            <div class="card bg-dark text-white" style="width: 100%; height: 300px;">
+              <img class="card-img" src="<%= data.imageUrl %>" alt="No image provided" style="width: 100%; height: 100%; object-position: center; object-fit: cover;">
+              <div class="card-img-overlay">
+                <h5 class="card-title text-white"><%= data.title %></h5>
+                <p class="card-text text-white"><%= data.publishDate.substring(0,10) %></p>
+                <a href="<%= data.url%>" target="_blank">Read more</a>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+    </div>
+    <div class="w-25 bg-dark"
+         style="border-top-left-radius: 15px; border-top-right-radius: 15px;
+                position: fixed; right: 0; bottom: 0; z-index: 99999;"
+         id="msgbox"
+    >
+      <div class="row justify-content-end">
+        <div class="col-12 text-center" style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+          <h3 class="text-center bg-info py-2" id="msgboxhandler" style="border-top-left-radius: 15px; border-top-right-radius: 15px; ">Chat App</h3>
+          <div class="row justify-content-center mt-1">
+            <div class="col-12">
+              <input class="form-control  d-inline-block text-center " type="text" placeholder="enter nickname" id="nicknameinput">
+              <button class="btn btn-primary rounded d-inline-block my-2" id="enternickname">Enter nickname</button>
+            </div>
+            <div class="col-12">
+            <textarea class="form-control w-100 d-inline-block text-left" id="messagebox" rows="10" disabled>
+  			</textarea>
+            </div>
+            <div class="col-12 ">
+              <input class="form-control w-100 d-inline-block text-center" type="text" placeholder="enter message" id="messageinput">
+              <button class="btn btn-primary rounded d-inline-block bg-success my-2" id="entermessage">Send message</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%- include('footer') %>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(() => {
+        $('#msgbox').hide();
+        $('#messageboxhandle1').on('click', () => $('#msgbox').toggle());
+        $('#msgboxhandler').on('click', () => $('#msgbox').toggle());
+        const socket = io.connect();
+        $('#enternickname').on('click', () => {
+          const nkname = $('#nicknameinput').val();
+          if (nkname && nkname.length >= 1)
+            socket.emit('nickname', nkname);
+          $('#nicknameinput').val('');
+        });
+        $('#entermessage').on('click', () => {
+          const msg = $('#messageinput').val();
+          if (msg && msg.length >= 1)
+            socket.emit('message', { message: msg });
+          $('#messageinput').val('');
+        });
+        socket.on('newmessage', msg => {
+          const d = new Date(); // for now
+          const inp = `${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
+          $('#messagebox').val(`(${msg.sender} from ${msg.city})=> ${msg.message}   [${inp}]  \n` + $('#messagebox').val());
+        });
+      });
+    </script>
+  </body>
+</html>

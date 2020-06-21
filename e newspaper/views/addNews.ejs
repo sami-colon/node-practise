@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>Admin</title>
+    <style>
+        p{
+            opacity: 0.85;
+            font-size: 1.25rem;
+        }
+        p:hover{
+            cursor: pointer;
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+<h1 class="p-4 rounded-0 font-weight-bold text-center text-white bg-primary mb-0">Add News</h1>
+<p class="text-white text-center ml-auto bg-danger my-0 w-25 rounded-left" id="p1"><%= error %></p>
+<p class="text-white text-center ml-auto bg-success my-0 w-25 rounded-left" id="p2"><%= msg %></p>
+<br>
+<div class="row justify-content-center text-center my-5 mx-0" id="add-product">
+    <div class="col-9">
+        <form action="http://localhost:3000/addNews" method="POST">
+            <div class="row justify-content-center text-left my-3 mx-0">
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="pname-prepend"><i class="fa fa-users" aria-hidden="true"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="pname" placeholder="Enter title" name="title" required minlength="1">
+                        <div class="invalid-tooltip">
+                            Please choose a valid news title.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center text-left my-3 mx-0">
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="details-prepend"><i class="fa fa-key" aria-hidden="true"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="details" placeholder="Enter description" name="description" required>
+                        <div class="invalid-tooltip">
+                            Please enter valid description.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center text-left my-3 mx-0">
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="price-prepend"><i class="fa fa-money" aria-hidden="true"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="price" placeholder="Enter url" name="url" required>
+                        <div class="invalid-tooltip">
+                            Please enter valid url.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center text-left my-3 mx-0">
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="imageurl-prepend"><i class="fa fa-money" aria-hidden="true"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="imageurl" placeholder="Enter image url" name="imageUrl" required>
+                        <div class="invalid-tooltip">
+                            Please enter valid image url.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center text-center my-5 mx-0">
+                <button type="submit" class="btn btn-primary text-white mr-2 px-3">submit</button>
+                <button type="reset" class="btn btn-warning text-dark px-3">reset</button>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(() => {
+        $('#p1').on('click', () => {
+            $('#p1').hide();
+        });
+        $('#p2').on('click', () => {
+            $('#p2').hide();
+        });
+    });
+</script>
+</body>
+
+</html>
