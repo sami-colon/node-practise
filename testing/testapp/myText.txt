@@ -1,0 +1,21 @@
+For preparing an application for production-level serving 
+the API, uWSGI and NGINX can be used. Docker makes it
+ easy to have everything put together in the same 
+ container and prevents you from having to install 
+ everything from scratch every time that you would
+  put your application to run.
+
+NGINX is the web server and reverse proxy, 
+that passes requests on to uWSGI.
+
+uWSGI is an application server, which 
+can communicate with the web server for
+ receiving requests and forwards them to
+  Flask via the WSGI protocol.
+
+The set up shown here is very minimal,
+ and not suited for handling large 
+ amounts of simultaneous requests. 
+ However, this architecture is able 
+ to scale, and for this, it would
+only require tweaking the configuration files.
