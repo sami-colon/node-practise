@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-    <title>Admin</title>
+    <title>login/ Register</title>
     <style>
         p{
             opacity: 0.85;
@@ -21,26 +21,22 @@
     </style>
 </head>
 
-<body class="bg-white">
-<%- include('adminHeader') %>
+<body>
+<h1 class="p-5 bg-info text-white text-center mb-0">Login/ Register</h1>
 <p class="text-white text-center ml-auto bg-danger my-0 w-25 rounded-left" id="p1"><%= error %></p>
 <p class="text-white text-center ml-auto bg-success my-0 w-25 rounded-left" id="p2"><%= msg %></p>
-<% if(name && email && name.length>0 && email.length>0) { %>
-    <p class="text-white text-left bg-success my-0 px-5">Username: <%= name %>&nbsp;&nbsp;&nbsp;Email: <%= email %></p>
-<% } %>
-<!--<h1 class="p-4 rounded-0 font-weight-bold text-center text-white bg-primary my-0">Add News</h1>-->
-<div class="row justify-content-center text-center my-5 mx-0" id="add-product">
-    <div class="col-9">
-        <form action="http://localhost:3000/addNews" method="POST">
+<div class="row justify-content-center text-center my-5 mx-0">
+    <div class="col-6">
+        <form action="http://localhost:3000/login" method="POST">
             <div class="row justify-content-center text-left my-3 mx-0">
                 <div class="col-md-6 col-12">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="pname-prepend"><i class="fa fa-users" aria-hidden="true"></i></span>
+                            <span class="input-group-text" id="name-prepend"><i class="fa fa-users" aria-hidden="true"></i></span>
                         </div>
-                        <input type="text" class="form-control" id="pname" placeholder="Enter title" name="title" required minlength="1">
+                        <input type="email" class="form-control" id="username" placeholder="email" name="email" required>
                         <div class="invalid-tooltip">
-                            Please choose a valid news title.
+                            Please choose a valid email.
                         </div>
                     </div>
                 </div>
@@ -49,51 +45,72 @@
                 <div class="col-md-6 col-12">
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <span class="input-group-text" id="details-prepend"><i class="fa fa-key" aria-hidden="true"></i></span>
+                            <span class="input-group-text" id="pass-prepend"><i class="fa fa-key" aria-hidden="true"></i></span>
                         </div>
-                        <input type="text" class="form-control" id="details" placeholder="Enter description" name="description" required>
+                        <input type="password" class="form-control" id="password" placeholder="password" name="password" required minlength="8">
                         <div class="invalid-tooltip">
-                            Please enter valid description.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center text-left my-3 mx-0">
-                <div class="col-md-6 col-12">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="price-prepend"><i class="fa fa-money" aria-hidden="true"></i></span>
-                        </div>
-                        <input type="text" class="form-control" id="price" placeholder="Enter url" name="url" required>
-                        <div class="invalid-tooltip">
-                            Please enter valid url.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center text-left my-3 mx-0">
-                <div class="col-md-6 col-12">
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" id="imageurl-prepend"><i class="fa fa-money" aria-hidden="true"></i></span>
-                        </div>
-                        <input type="text" class="form-control" id="imageurl" placeholder="Enter image url" name="imageUrl" required>
-                        <div class="invalid-tooltip">
-                            Please enter valid image url.
+                            Please choose a valid password.
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center text-center my-5 mx-0">
-                <button type="submit" class="btn btn-primary text-white mr-2 px-3">submit</button>
-                <button type="reset" class="btn btn-warning text-dark px-3">reset</button>
+                <button type="submit" class="btn btn-primary text-white mr-2">login</button>
+                <button type="rest" class="btn btn-warning text-white">reset</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-6">
+        <form action="http://localhost:3000/register" method="POST">
+            <div class="row justify-content-center text-left my-3 mx-0">
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="name-prepend1"><i class="fa fa-users" aria-hidden="true"></i></span>
+                        </div>
+                        <input type="text" class="form-control" id="username1" placeholder="name" name="username" required>
+                        <div class="invalid-tooltip">
+                            Please choose a valid name.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center text-left my-3 mx-0">
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="ename-prepend1"><i class="fa fa-users" aria-hidden="true"></i></span>
+                        </div>
+                        <input type="email" class="form-control" id="email" placeholder="email" name="email" required>
+                        <div class="invalid-tooltip">
+                            Please choose a valid email.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center text-left my-3 mx-0">
+                <div class="col-md-6 col-12">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="pass-prepend1"><i class="fa fa-key" aria-hidden="true"></i></span>
+                        </div>
+                        <input type="password" class="form-control" id="password1" placeholder="password" name="password" required minlength="8">
+                        <div class="invalid-tooltip">
+                            Please choose a valid password.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-center text-center my-5 mx-0">
+                <button type="submit" class="btn btn-primary text-white mr-2">register</button>
+                <button type="rest" class="btn btn-warning text-white">reset</button>
             </div>
         </form>
     </div>
 </div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script>
@@ -103,16 +120,6 @@
         });
         $('#p2').on('click', () => {
             $('#p2').hide();
-        });
-        $('#logout').on('click', () => {
-            $.getJSON('http://localhost:3000/logout')
-                .done(data => {
-                    if(data.result === true)
-                        window.location.replace('http://localhost:3000/login?msg=' + encodeURI('!succesfully logged out'));
-                })
-                .catch(err => {
-                    console.log(err);
-                });
         });
     });
 </script>

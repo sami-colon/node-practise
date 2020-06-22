@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const LocalStorage = require('node-localstorage').LocalStorage;
 const config = require('./config');
 const newsmodel = require('./models/news');
+const usermodel = require('./models/user');
 const path = require('path');
 const http = require('http');
 const publicip = require('public-ip');
@@ -56,6 +57,24 @@ io.sockets.on('connection', (socket) => {
 	});
 });
 
+const isLoggedin = (req, res, next) => {
+	const token = localStorage.getItem('token');
+	if (!token) {
+		res.redirect('/login?error=' + encodeURIComponent('!Not logged in'));
+	} else {
+		jwt.verify(token, config.SECRET_KEY, (error, decoded) => {
+			if (error) res.redirect('/login?error=' + encodeURIComponent('!Not logged in'));
+			else {
+				usermodel.findOne({ _id: decoded.id }, (err, user) => {
+					if (err) res.redirect('/login?error=' + encodeURIComponent('!server error. Cannot authentcate'));
+					else if (!user) res.redirect('/login?error=' + encodeURIComponent('!No such user present'));
+					else next();
+				});
+			}
+		});
+	}
+};
+
 app.get('/', (req, res) => {
 	publicip.v4().then(ip => {
 		iplocate(ip).then((result) => {
@@ -89,11 +108,17 @@ app.get('/sports', (req, res) => {
 	res.render('sports');
 });
 
-app.get('/addNews', (req, res) => {
-	res.render('addNews', { error: req.query.error ? req.query.error : '', msg: req.query.msg ? req.query.msg : '' });
+app.get('/addNews', isLoggedin,(req, res) => {
+	res.render('addNews',
+		{
+			error: req.query.error ? req.query.error : '',
+			msg: req.query.msg ? req.query.msg : '',
+			name: req.query.name ? req.query.name : '',
+			email: req.query.email ? req.query.email : '',
+		});
 });
 
-app.post('/addNews', (req, res) => {
+app.post('/addNews', isLoggedin, (req, res) => {
 	const data = { title: req.body.title, description: req.body.description, url: req.body.url, imageUrl: req.body.imageUrl, publishDate: new Date().toISOString()};
 	newsmodel.create(data, (error, result) => {
 		if (error) res.redirect('/addNews?error=' + encodeURIComponent('!There was error adding news'));
@@ -109,7 +134,6 @@ app.get('/getLatestNews', (req, res) => {
 	newsmodel.find({}).sort('-publishDate').exec((error, result) => {
 		if(error) console.log(error);
 		else {
-			console.log(result);
 			res.send(result);
 		}
 	});
@@ -133,4 +157,49 @@ app.post('/contactus', (req, res) => {
 		.catch(err => {
 			res.redirect('/contactus?error=' + encodeURIComponent('!Error occured while sending.'));
 		});
+});
+
+app.get('/login', (req, res) => {
+	res.render('login', { error: req.query.error ? req.query.error : '', msg: req.query.msg ? req.query.msg : '' });
+});
+
+app.post('/register', (req, res) => {
+	const data = { name: req.body.username, email: req.body.email, password: bcrypt.hashSync(req.body.password, 8) };
+	usermodel.create(data, (error, result) => {
+		if (error)
+			res.redirect('/login?error=' + encodeURIComponent('!There was error registering user'));
+		else if (!result) {
+			res.redirect('/login?error=' + encodeURIComponent('!Username alreday taken'));
+		} else {
+			const token = jwt.sign({ id: result._id }, config.SECRET_KEY, { expiresIn: 86400 });
+			localStorage.setItem('token', token);
+			res.redirect('/login?msg=' + encodeURIComponent('!Registered successfuly'));
+		}
+	});
+});
+
+app.post('/login', (req, res) => {
+	usermodel.findOne({ email: req.body.email }, (error, result) => {
+		if (error) res.redirect('/?error=' + encodeURIComponent('!Server error'));
+		else if (!result) {
+			res.redirect('/?error=' + encodeURIComponent('!Please Enter valid username'));
+		} else {
+			const compRes = bcrypt.compareSync(req.body.password, result.password);
+			if (!compRes) res.redirect('/login?error=' + encodeURIComponent('!Please Enter valid password'));
+			else {
+				const token = jwt.sign({ id: result._id }, config.SECRET_KEY, { expiresIn: 86400 });
+				localStorage.setItem('token', token);
+				res.redirect('/addNews?name='+ encodeURIComponent(result.name) + '&email=' + encodeURIComponent(result.email) );
+			}
+		}
+	});
+});
+
+app.get('/editNews', isLoggedin, (req, res) => {
+	res.render('editNews');
+});
+
+app.get('/logout', (req, res) => {
+	localStorage.removeItem('token');
+	res.send({ result: true });
 });

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <title>Admin</title>
+</head>
+
+<body class="bg-white">
+<%- include('adminHeader') %>
+<!--<h1 class="p-5 bg-info text-white text-center mb-0">Admin Page</h1>-->
+<div class="row justify-content-center text-center my-5 mx-0" id="show-product" >
+    <div class="col-12">
+        <table class="table text-center">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Title</th>
+                <th scope="col">Details</th>
+                <th scope="col">Published At</th>
+                <th scope="col">Edit/ Delete</th>
+            </tr>
+            </thead>
+            <tbody id="tableEntryProducts">
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(document).ready(() => {
+
+        $.getJSON('http://localhost:3000/getLatestNews')
+            .done(data => {
+                $.each(data, (idx, product) => {
+                    const temp = `<tr>
+                        <td>${product.title}</td>
+                        <td>${product.description}</td>
+                        <td>${product.publishDate.substring(0, 10)}</td>
+                        <td>
+                            <button class="btn btn-warning">Edit</button>
+                            <button class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>`;
+                    $('#tableEntryProducts').append(temp);
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
+
+        $('#logout').on('click', () => {
+            $.getJSON('http://localhost:3000/logout')
+                .done(data => {
+                    if(data.result === true)
+                        window.location.replace('http://localhost:3000/login?msg=' + encodeURI('!succesfully logged out'));
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        });
+    });
+</script>
+</body>
+</html>
