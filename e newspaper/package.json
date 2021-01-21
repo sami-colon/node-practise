@@ -23,6 +23,6 @@
     "node-iplocate": "^1.0.2",
     "node-localstorage": "^2.1.6",
     "public-ip": "^4.0.1",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.4.0"
   }
 }
